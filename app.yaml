@@ -1,0 +1,17 @@
+runtime: go111
+automatic_scaling:
+  min_idle_instances: 1 # resident instance
+  max_idle_instances: 1 # cap
+  min_pending_latency: 10ms # serve ASAP
+
+inbound_services:
+- warmup
+
+handlers:
+- url: /(_ah/warmup|do/\w+)
+  script: auto
+  login: admin
+  secure: always
+
+includes:
+  - app.config.yaml

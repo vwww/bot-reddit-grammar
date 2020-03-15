@@ -1,0 +1,5 @@
+env_variables:
+  USERNAME: ""
+  PASSWORD: ""
+  USERAGENT: bot-reddit-grammar/0.0.0-dev
+  subreddit: ""
