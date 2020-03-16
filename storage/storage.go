@@ -46,7 +46,10 @@ func GetAuth(c context.Context) (*StoredAuth, error) {
 	k := authKey(c)
 	var a StoredAuth
 
-	if err := datastore.Get(c, k, &a); err != nil && err != datastore.ErrNoSuchEntity {
+	if err := datastore.Get(c, k, &a); err != nil {
+		if err == datastore.ErrNoSuchEntity {
+			return nil, nil
+		}
 		return nil, err
 	}
 

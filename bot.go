@@ -43,6 +43,7 @@ func doInit(c context.Context) error {
 		// Load response
 		log.Debugf(c, "%v", resp.Header)
 		log.Debugf(c, "%v", resp)
+		log.Debugf(c, "%v", string(b))
 
 		type loginJSON struct {
 			JSON struct {
@@ -61,10 +62,11 @@ func doInit(c context.Context) error {
 
 		// Save
 		data := l.JSON.Data
-		err = storage.SetAuth(c, &storage.StoredAuth{
+		a = &storage.StoredAuth{
 			data.Modhash,
 			data.Cookie,
-		})
+		}
+		err = storage.SetAuth(c, a)
 		if err != nil {
 			return err
 		}

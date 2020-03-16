@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"strings"
 )
 
 func userAgent() string { return os.Getenv("USERAGENT") }
@@ -39,7 +40,7 @@ func Authorize(username, password string) (*http.Response, error) {
 
 	log.Println(payload)
 
-	req, err := http.NewRequest("POST", "https://ssl.reddit.com/api/login", nil)
+	req, err := http.NewRequest("POST", "https://ssl.reddit.com/api/login", strings.NewReader(payload))
 	if err != nil {
 		return nil, err
 	}
