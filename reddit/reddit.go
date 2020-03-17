@@ -66,7 +66,7 @@ func PostComment(parent, text string, modhash, session string) (*http.Response, 
 	}
 
 	req.Header.Set("User-Agent", userAgent())
-	req.Header.Set("Cookie", fmt.Sprintf("reddit_session=%v; Domain=reddit.com; Path=/; HttpOnly", session))
+	req.Header.Set("Cookie", fmt.Sprintf("reddit_session=%v; Domain=reddit.com; Path=/; HttpOnly", url.QueryEscape(session)))
 
 	return http.DefaultClient.Do(req)
 }
