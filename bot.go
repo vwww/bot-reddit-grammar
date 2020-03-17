@@ -26,6 +26,7 @@ func doInit(c context.Context) error {
 
 		// Log in
 		resp, err := reddit.Authorize(
+			c,
 			os.Getenv("USERNAME"),
 			os.Getenv("PASSWORD"),
 		)
@@ -88,7 +89,7 @@ func doPost(c context.Context, simulate bool) error {
 	}
 
 	// Fetch new links
-	resp, err := reddit.GetNew(o.Last, subreddit)
+	resp, err := reddit.GetNew(c, o.Last, subreddit)
 	if err != nil {
 		return err
 	}
@@ -167,7 +168,7 @@ func doPost(c context.Context, simulate bool) error {
 }
 
 func doComment(c context.Context, parent, text string) error {
-	resp, err := reddit.PostComment(parent, text, auth.ModHash, auth.Session)
+	resp, err := reddit.PostComment(c, parent, text, auth.ModHash, auth.Session)
 	if err != nil {
 		return err
 	}
