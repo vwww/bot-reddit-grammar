@@ -60,7 +60,7 @@ func PostComment(parent, text string, modhash, session string) (*http.Response, 
 
 	log.Println(payload)
 
-	req, err := http.NewRequest("POST", "https://www.reddit.com/api/comment", nil)
+	req, err := http.NewRequest("POST", "https://www.reddit.com/api/comment", strings.NewReader(payload))
 	if err != nil {
 		return nil, err
 	}
